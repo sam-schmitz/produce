@@ -65,10 +65,10 @@ function ProductTable({ products, filterText, inStockOnly }) {
     );
 }
 
-function SearchBar({ filterText, inStockOnly }) {
+function SearchBar({ filterText, inStockOnly, onFilterTextChange, onInStockOnlyChange }) {
     return (
         <form>
-            <input type="text" value={filterText} placeholders="Search..." />
+            <input type="text" value={filterText} placeholders="Search..." onChange={(e) => onFilterTextChange(e.target.value)} />
             <label>
                 <input type="checkbox" checked={inStockOnly} />
                 {' '}
@@ -79,13 +79,16 @@ function SearchBar({ filterText, inStockOnly }) {
 }
 
 function FilterableProductTable({ products }) {
-    const [filterText, setFilter] = useState('');
+    const [filterText, setFilterText] = useState('');
     const [inStockOnly, setInStockOnly] = useState(false);
+
     return (
         <div>
             <SearchBar
                 filterText={filterText}
-                inStockOnly={inStockOnly} />
+                inStockOnly={inStockOnly}
+                onFilterTextChange={setFilterText}
+                onInStockOnlyChange={setInStockOnly} />
             <ProductTable products={products}
                 products={products}
                 filterText={filterText}
